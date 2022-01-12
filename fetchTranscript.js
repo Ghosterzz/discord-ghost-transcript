@@ -21,7 +21,7 @@ async function fetchTranscript(channel ,message, numberOfMessages) {
           if(channelMessages)
               messageCollection = messageCollection.concat(channelMessages);
       }
-      let msgs = messageCollection.array().reverse();
+      let msgs = messageCollection.map(r => r).reverse();
       return new Promise(async(ful) => {
           await fs.readFile(require('path').join(__dirname, 'template.html'), 'utf8', async function(err, data) {
               if(data) {
@@ -116,5 +116,5 @@ async function fetchTranscript(channel ,message, numberOfMessages) {
   module.exports = fetchTranscript;
   function getImageLinks(attachments) {
   const valid = /^.*(gif|png|jpg|jpeg)$/g;
-  return attachments.array().filter((attachment) => valid.test(attachment.url)).map((attachment) => attachment.url);
+  return attachments.map(r => r).filter((attachment) => valid.test(attachment.url)).map((attachment) => attachment.url);
 }
